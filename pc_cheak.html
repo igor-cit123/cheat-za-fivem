@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC Check</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0b0f14;
+    color: #e8edf2;
+    font-family: Arial, sans-serif;
+  }
+  .box {
+    width: min(680px, 90%);
+    background: #111820;
+    border: 1px solid #293542;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 15px 50px rgba(0,0,0,.4);
+  }
+  h1 { margin-top: 0; }
+  .line { margin: 14px 0; color: #aeb9c5; }
+  .ok { color: #65d18b; }
+  .warn { color: #f0bd5b; }
+  .result {
+    display: none;
+    margin-top: 28px;
+    padding: 22px;
+    border-radius: 10px;
+    background: #18212b;
+    text-align: center;
+  }
+  .result h2 { margin: 0 0 12px; }
+  .big { font-size: 25px; font-weight: 700; }
+  .bar {
+    height: 8px;
+    background: #27323d;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 22px 0;
+  }
+  .fill {
+    width: 0%;
+    height: 100%;
+    background: #65d18b;
+    transition: width .5s;
+  }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>🔍 PC Verification System</h1>
+  <p class="line">Pokretanje provere računara...</p>
+  <div class="bar"><div class="fill" id="fill"></div></div>
+  <div id="status">
+    <div class="line">⏳ Provera sistemskih fajlova...</div>
+    <div class="line">⏳ Provera aktivnih procesa...</div>
+    <div class="line">⏳ Provera anti-cheat konfiguracije...</div>
+  </div>
+
+  <div class="result" id="result">
+    <h2>PROVERA ZAVRŠENA</h2>
+    <div class="big">Momci, naučite kako se proverava PC pa mi proveravajte onda.</div>
+    <p class="warn">Nema čitova pronađeno. Pronađena je samo vaša stručnost. ❌</p>
+  </div>
+</div>
+
+<script>
+let fill = document.getElementById("fill");
+let result = document.getElementById("result");
+let status = document.getElementById("status");
+let p = 0;
+
+let timer = setInterval(() => {
+  p += Math.floor(Math.random() * 15) + 7;
+  if (p >= 100) {
+    p = 100;
+    clearInterval(timer);
+    status.innerHTML =
+      '<div class="line ok">✅ Sistem pregledan</div>' +
+      '<div class="line ok">✅ Nema čitova pronađeno</div>' +
+      '<div class="line warn">⚠️ Detektovana neobična količina samopouzdanja kod proveravača</div>';
+    setTimeout(() => result.style.display = "block", 700);
+  }
+  fill.style.width = p + "%";
+}, 500);
+</script>
+</body>
+</html>
